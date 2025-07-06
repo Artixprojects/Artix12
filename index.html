@@ -1,13 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Artix Website</title>
-  </head>
-  <body class="bg-black text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARTIX - Ultra Pro Max</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; font-family: 'Inter', sans-serif; background: #000; color: #fff; }
+    .hero { text-align: center; padding: 120px 20px; background: linear-gradient(135deg, #6b21a8, #db2777, #06b6d4); color: #fff; }
+    .hero h1 { font-size: 4rem; font-weight: 900; text-shadow: 0 0 30px rgba(255,255,255,0.5); }
+    .hero p { margin: 15px 0; font-size: 1.5rem; opacity: 0.85; }
+    .btn { display: inline-block; margin: 10px; padding: 12px 30px; border-radius: 25px; background: #9333ea; color: #fff; text-decoration: none; font-weight: bold; transition: all 0.3s; }
+    .btn:hover { background: #06b6d4; transform: scale(1.05); }
+    .section { padding: 60px 20px; }
+    .section h2 { text-align: center; font-size: 2.5rem; margin-bottom: 30px; color: #06b6d4; }
+    .card-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; transition: transform 0.3s; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+    .card h3 { margin-bottom: 10px; color: #f472b6; }
+    .card p { margin: 5px 0; }
+    .contact form { display: flex; flex-direction: column; gap: 10px; max-width: 500px; margin: auto; }
+    .contact input, .contact textarea { padding: 10px; border: none; border-radius: 8px; background: rgba(255,255,255,0.1); color: #fff; }
+    .contact button { padding: 10px; border: none; border-radius: 25px; background: #9333ea; color: #fff; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    .contact button:hover { background: #06b6d4; }
+    .footer { text-align: center; padding: 15px; font-size: 0.9rem; color: #9ca3af; border-top: 1px solid rgba(255,255,255,0.1); }
+    .social-icons { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .social-icons a { background: #06b6d4; padding: 10px; border-radius: 50%; color: #fff; text-decoration: none; transition: all 0.3s; }
+    .social-icons a:hover { background: #9333ea; transform: scale(1.1); }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>ARTIX</h1>
+    <p>Ultra-premium digital design studio — bringing your vision to life.</p>
+    <a href="#services" class="btn">Explore Services</a>
+    <a href="#contact" class="btn">Get In Touch</a>
+  </div>
+
+  <section id="services" class="section">
+    <h2>Our Services</h2>
+    <div class="card-grid">
+      <div class="card"><h3>Thumbnail Design</h3><p>Engaging YouTube thumbnails.</p><p>₹150–₹200</p></div>
+      <div class="card"><h3>Social Media Post Design</h3><p>Posts for Instagram, Facebook, Twitter.</p><p>₹120–₹200</p></div>
+      <div class="card"><h3>Reels/Shorts Editing</h3><p>Dynamic short-form video edits.</p><p>₹300–₹400</p></div>
+      <div class="card"><h3>YouTube Video Editing</h3><p>Cinematic edits for full videos.</p><p>₹600–₹1100</p></div>
+      <div class="card"><h3>PowerPoint Presentation</h3><p>Clean and professional slides.</p><p>₹250–₹500</p></div>
+    </div>
+  </section>
+
+  <section id="packages" class="section">
+    <h2>Our Packages</h2>
+    <div class="card-grid">
+      <div class="card"><h3>Starter Plan</h3><p>₹999 / month</p><ul><li>4 Thumbnails</li><li>4 Posts</li><li>2 Reels</li><li>1 PPT</li></ul></div>
+      <div class="card"><h3>Growth Plan</h3><p>₹2499 / month</p><ul><li>8 Thumbnails</li><li>8 Posts</li><li>4 Reels</li><li>2 PPTs</li></ul></div>
+      <div class="card"><h3>Pro Presence Plan</h3><p>₹4999 / month</p><ul><li>12 Thumbnails</li><li>12 Posts</li><li>6 Reels</li><li>10 PPTs</li></ul></div>
+      <div class="card"><h3>Elite Expansion Plan</h3><p>₹7999 / month</p><ul><li>20 Thumbnails</li><li>20 Posts</li><li>10 Reels</li><li>20 PPTs</li><li>Full Social Management</li></ul></div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p style="text-align:center; margin-top:15px;">Call us: <a href="tel:9350122347" style="color:#06b6d4;">9350122347</a></p>
+  </section>
+
+  <footer class="footer">© 2025 ARTIX. All rights reserved.</footer>
+
+  <div class="social-icons">
+    <a href="https://www.instagram.com/artix_projects/" target="_blank">IG</a>
+    <a href="tel:9350122347">📞</a>
+    <a href="https://wa.me/919536240238" target="_blank">WA1</a>
+    <a href="https://wa.me/91819991927" target="_blank">WA2</a>
+  </div>
+</body>
 </html>
