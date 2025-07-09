@@ -244,6 +244,19 @@
   border: none;
   border-radius: 15px;
 }
+.thumbnail-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.thumbnail-card img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+}
+
 
   </style>
 </head>
@@ -378,7 +391,23 @@
     </div>
   </div>
 </section>
- 
+ <section id="thumbnails" class="section">
+  <h2>Our Thumbnails</h2>
+  <div class="card-grid">
+    <div class="card thumbnail-card"><img src="1.png" alt="Thumbnail 1"></div>
+    <div class="card thumbnail-card"><img src="2.png" alt="Thumbnail 2"></div>
+    <div class="card thumbnail-card"><img src="880.jpeg" alt="Thumbnail 3"></div>
+    <div class="card thumbnail-card"><img src="AA.png" alt="Thumbnail 4"></div>
+    <div class="card thumbnail-card"><img src="AD.png" alt="Thumbnail 5"></div>
+    <div class="card thumbnail-card"><img src="Admisson open.png" alt="Thumbnail 6"></div>
+    <div class="card thumbnail-card"><img src="Boson.png" alt="Thumbnail 7"></div>
+    <div class="card thumbnail-card"><img src="Buddha.png" alt="Thumbnail 8"></div>
+    <div class="card thumbnail-card"><img src="ISI.png" alt="Thumbnail 9"></div>
+    <div class="card thumbnail-card"><img src="Maharana.png" alt="Thumbnail 10"></div>
+    <!-- Add more <div> for each thumbnail image -->
+  </div>
+</section>
+
 
 
 
