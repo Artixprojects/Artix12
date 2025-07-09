@@ -246,11 +246,13 @@
 }
 .thumbnail-card img {
   width: 100%;
-  height: auto;
+  height: 180px; /* Force fixed height */
+  object-fit: cover;
   border-radius: 15px;
   box-shadow: 0 5px 30px rgba(0,0,0,0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 .thumbnail-card img:hover {
   transform: scale(1.05);
