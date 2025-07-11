@@ -245,12 +245,12 @@
   border-radius: 15px;
 }
 .thumbnail-card img {
+  display: block;
   width: 100%;
-  height: 180px; /* Force same height */
-  object-fit: cover;
-  border-radius: 15px;
-  box-shadow: 0 5px 30px rgba(0,0,0,0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 180px;         /* or whatever you want */
+  object-fit: cover;     /* Keeps cover effect */
+}
+
 }
 
 .thumbnail-card:hover img {
