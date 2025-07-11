@@ -244,29 +244,35 @@
   border: none;
   border-radius: 15px;
 }
-.thumbnail-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-  background: #f0f0f0; /* Optional background color */
+.thumbnails {
+  text-align: center;
+  padding: 50px 20px;
+  background: #f7f7f7; /* Light background to match modern themes */
 }
 
-.a4-thumbnail-card {
-  max-width: 800px;     /* Approx A4 width in pixels */
+.thumbnails h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.thumbnail-wrapper {
+  max-width: 850px; /* ~A4 width in px */
   width: 100%;
+  margin: 0 auto;
+  border-radius: 12px;
   overflow: hidden;
-  border-radius: 12px;  /* Rounded corners if you like */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-.a4-thumbnail-card img {
+.thumbnail-wrapper img {
   display: block;
   width: 100%;
-  height: auto;         /* Keeps correct aspect ratio */
-  object-fit: cover;    /* Covers the box if you set fixed height */
-  border-radius: 12px;  /* Match container radius */
+  height: auto;
+  border-radius: 12px;
 }
+
 
 
   </style>
@@ -402,12 +408,15 @@
     </div>
   </div>
 </section>
-<section class="thumbnail-section">
-    <h2>Our Thumbnails</h2>
-  <div class="a4-thumbnail-card">
+<!-- Thumbnails Section Start -->
+<section class="thumbnails">
+  <h2>Our Thumbnails</h2>
+  <div class="thumbnail-wrapper">
     <img src="Bitaru.png" alt="A4 Thumbnail">
   </div>
 </section>
+<!-- Thumbnails Section End -->
+
 
 
   <section id="contact" class="section contact">
