@@ -244,19 +244,30 @@
   border: none;
   border-radius: 15px;
 }
-.thumbnail-card {
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  border-radius: 15px;
+.thumbnail-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background: #f0f0f0; /* Optional background color */
 }
 
-.thumbnail-card img {
+.a4-thumbnail-card {
+  max-width: 800px;     /* Approx A4 width in pixels */
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;  /* Rounded corners if you like */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.a4-thumbnail-card img {
   display: block;
   width: 100%;
-  height: 180px;
-  object-fit: cover;
+  height: auto;         /* Keeps correct aspect ratio */
+  object-fit: cover;    /* Covers the box if you set fixed height */
+  border-radius: 12px;  /* Match container radius */
 }
+
 
   </style>
 </head>
@@ -391,12 +402,13 @@
     </div>
   </div>
 </section>
-  <section id="thumbnails" class="section">
-  <h2>Our Thumbnails</h2>
-  <div class="card-grid">
-    <div class="card thumbnail-card"><img src="Bitaru.png" alt="Thumbnail 1"></div>
+<section class="thumbnail-section">
+    <h2>Our Thumbnails</h2>
+  <div class="a4-thumbnail-card">
+    <img src="Bitaru.png" alt="A4 Thumbnail">
   </div>
 </section>
+
 
   <section id="contact" class="section contact">
     <h2>Contact Us</h2>
