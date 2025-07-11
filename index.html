@@ -244,41 +244,33 @@
   border: none;
   border-radius: 15px;
 }
-.thumbnails {
+
+   .thumbnails {
   text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(135deg, #011936, #003f5c); /* Dark blue gradient */
+  padding: 40px 20px;
+  background: linear-gradient(to bottom, #0077b6, #00b4d8); /* adjust to match your theme */
 }
 
 .thumbnails h2 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 3rem;
-  margin-bottom: 40px;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 20px;
+  font-family: Poppins, sans-serif;
 }
 
 .thumbnail-wrapper {
-  max-width: 900px;
-  width: 95%;
-  margin: 0 auto;
-  border-radius: 16px;
+  display: inline-block;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 30px rgba(0, 153, 255, 0.4); /* Subtle blue glow */
-  border: 2px solid #00bfff; /* Accent border */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-.thumbnail-wrapper img {
+.thumbnail-wrapper video {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
-  border-radius: 0; /* Remove inner rounding to match border */
 }
-    <section class="video-section">
-  <h2>Watch Our Video</h2>
-  <video src="abc.mp4" controls autoplay muted loop></video>
-</section>
 
 
   </style>
@@ -413,15 +405,13 @@
       <p>Video Sample 3</p>
     </div>
   </div>
-</section>
-<!-- Thumbnails Section Start -->
 <section class="thumbnails">
-  <h2>Our Thumbnails</h2>
+  <h2>Our Video</h2>
   <div class="thumbnail-wrapper">
-    <img src="ABC.mp4" alt="A4 Thumbnail">
+    <video src="abc.mp4" controls autoplay muted loop></video>
   </div>
 </section>
-<!-- Thumbnails Section End -->
+
   <section id="contact" class="section contact">
     <h2>Contact Us</h2>
     <div class="contact-links">
