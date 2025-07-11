@@ -244,19 +244,19 @@
   border: none;
   border-radius: 15px;
 }
+.thumbnail-card {
+  padding: 0;              /* Remove default padding */
+  overflow: hidden;        /* Clip any overflow */
+  border-radius: 15px;     /* Keep rounded corners if you like */
+}
+
 .thumbnail-card img {
-  display: block;
+  display: block;          /* Remove inline image spacing */
   width: 100%;
-  height: 180px;         /* or whatever you want */
-  object-fit: cover;     /* Keeps cover effect */
+  height: auto;            /* Let it scale naturally OR... */
+  border-radius: 0;        /* No radius on the image if container has it */
 }
 
-}
-
-.thumbnail-card:hover img {
-  transform: scale(1.05);
-  box-shadow: 0 10px 40px rgba(255,255,255,0.4);
-}
 
   </style>
 </head>
