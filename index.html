@@ -4,18 +4,16 @@
   <!-- =============================================================
        ARTIX – Single-file site (HTML + CSS + JS inline)
        Copy-paste into a file named index.html and open in a browser.
-       Contains: sticky navbar, hero, services, packages, team, samples,
-       thumbnails, portfolio, contact links, contact form, footer,
-       floating socials, theme toggle, mobile menu, animations,
-       smooth scroll, scroll spy, back-to-top.
-       Approx. 750+ lines to satisfy the 600+ request.
+       Sections: sticky navbar, hero, services, packages, team, samples,
+       thumbnails, contact links, contact form, footer, floating socials,
+       theme toggle, mobile menu, animations, smooth scroll, scroll spy,
+       back-to-top. (Portfolio removed as requested.)
        ============================================================= -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ARTIX</title>
   <meta name="description" content="ARTIX – Editing, Design, Branding, Strategy. Services, packages, samples and contact." />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4RhisQmLQOZ3GXk5x3a0Z6lrN1q9VHtV6fRvWmvMRGsiE9z1FMvxh1M6KZ6+0qVY3Bw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
   <style>
     /* =============================================================
@@ -33,7 +31,6 @@
       --accent: #f472b6;             /* pink */
       --shadow: 0 10px 40px rgba(0,0,0,0.55);
       --radius: 18px;
-      --glass: backdrop-filter: blur(12px);
       --transition: 220ms ease;
     }
 
@@ -202,15 +199,6 @@
     .thumbnail-wrapper video { max-width: min(100%, 950px); display: block; }
 
     /* =============================================================
-       PORTFOLIO
-       ============================================================= */
-    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
-    .portfolio-card { position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
-    .portfolio-card img { width: 100%; height: auto; display: block; }
-    .portfolio-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,20,.0), rgba(10,10,20,.85)); color: #fff; display: flex; align-items: flex-end; padding: 1rem; opacity: 0; transition: 220ms ease; }
-    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
-
-    /* =============================================================
        CONTACT LINKS + FORM
        ============================================================= */
     .contact-links { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 1rem; }
@@ -232,6 +220,7 @@
     .social-icons { position: fixed; right: 16px; bottom: 16px; display: grid; gap: 10px; z-index: 90; }
     .social-icons a { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: linear-gradient(135deg, var(--primary), var(--primary-2)); border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform var(--transition), filter var(--transition); }
     .social-icons a:hover { transform: translateY(-2px) scale(1.04); filter: brightness(1.08); }
+    .social-icons svg { width: 22px; height: 22px; fill: #ffffff; }
 
     .to-top { position: fixed; left: 16px; bottom: 16px; width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: rgba(124,58,237,.85); border: 1px solid var(--border); box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: 220ms ease; z-index: 90; }
     .to-top.show { opacity: 1; pointer-events: auto; }
@@ -248,6 +237,21 @@
   </style>
 </head>
 <body>
+  <!-- Inline SVG symbols (for potential reuse) -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <symbol id="icon-instagram" viewBox="0 0 24 24">
+        <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm0 2h10c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3zm5 3.5A5.5 5.5 0 1 0 17.5 13 5.507 5.507 0 0 0 12 7.5zm0 2A3.5 3.5 0 1 1 8.5 13 3.504 3.504 0 0 1 12 9.5zM18 6.2a1.2 1.2 0 1 0 1.2 1.2A1.2 1.2 0 0 0 18 6.2z"/>
+      </symbol>
+      <symbol id="icon-phone" viewBox="0 0 24 24">
+        <path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.11.37 2.31.57 3.58.57a1 1 0 0 1 1 1V20a2 2 0 0 1-2 2C9.61 22 2 14.39 2 4a2 2 0 0 1 2-2h3.49a1 1 0 0 1 1 1c0 1.27.2 2.47.57 3.58a1 1 0 0 1-.25 1.01l-2.19 2.2z"/>
+      </symbol>
+      <symbol id="icon-whatsapp" viewBox="0 0 24 24">
+        <path d="M20.52 3.48A11.78 11.78 0 0 0 12 .25 11.75 11.75 0 0 0 1.86 17.9L.5 23.5l5.73-1.5a11.76 11.76 0 0 0 5.77 1.52h.01A11.75 11.75 0 0 0 20.52 3.48zM12 21.25h-.01a9.96 9.96 0 0 1-5.07-1.38l-.36-.21-3.39.89.9-3.31-.23-.34a9.96 9.96 0 1 1 7.15 4.35zM17.4 14.07c-.3-.16-1.76-.86-2.04-.96-.27-.1-.47-.16-.67.16-.2.31-.77.95-.95 1.15-.18.2-.35.23-.65.08-.3-.16-1.27-.47-2.42-1.5-.89-.79-1.49-1.76-1.67-2.06-.18-.31-.02-.48.13-.64.13-.13.3-.35.45-.53.15-.18.2-.31.3-.52.1-.2.05-.39-.02-.55-.07-.16-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.8.39-.27.31-1.05 1.03-1.05 2.51 0 1.47 1.08 2.9 1.23 3.1.15.2 2.12 3.24 5.14 4.54.72.31 1.28.5 1.71.64.72.23 1.37.2 1.89.12.58-.09 1.76-.72 2-1.41.24-.69.24-1.28.17-1.41-.07-.13-.27-.2-.57-.36z"/>
+      </symbol>
+    </defs>
+  </svg>
+
   <!-- =============================================================
        NAV
        ============================================================= -->
@@ -260,13 +264,12 @@
         <a role="menuitem" href="#packages">Packages</a>
         <a role="menuitem" href="#team">Team</a>
         <a role="menuitem" href="#samples">Samples</a>
-        <a role="menuitem" href="#portfolio">Portfolio</a>
         <a role="menuitem" href="#contact">Contact</a>
       </div>
       <div class="nav-cta">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fa-solid fa-sun"></i></button>
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
-        <a href="#contact" class="btn" aria-label="Contact Now"><i class="fa-solid fa-bolt"></i> Contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">≡</button>
+        <a href="#contact" class="btn" aria-label="Contact Now">⚡ Contact</a>
       </div>
     </div>
     <!-- Mobile menu -->
@@ -277,7 +280,6 @@
         <a href="#packages">Packages</a>
         <a href="#team">Team</a>
         <a href="#samples">Samples</a>
-        <a href="#portfolio">Portfolio</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
@@ -306,8 +308,8 @@
         </span>
       </p>
       <div class="hero-cta">
-        <a href="#services" class="btn"><i class="fa-solid fa-compass"></i> Explore Services</a>
-        <a href="#contact" class="btn secondary"><i class="fa-solid fa-paper-plane"></i> Get In Touch</a>
+        <a href="#services" class="btn">🧭 Explore Services</a>
+        <a href="#contact" class="btn secondary">✉️ Get In Touch</a>
       </div>
     </div>
   </header>
@@ -324,91 +326,91 @@
         <div class="grid" data-animate>
           <!-- Keep original details and pricing -->
           <article class="service-card">
-            <h3><i class="fas fa-image"></i> Thumbnail Design</h3>
+            <h3>🖼️ Thumbnail Design</h3>
             <p class="desc">Custom YouTube lecture thumbnails.</p>
             <p class="price">₹150–₹200</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-bullhorn"></i> Social Media Post Design</h3>
+            <h3>📣 Social Media Post Design</h3>
             <p class="desc">Instagram/Facebook/Twitter post designs.</p>
             <p class="price">₹120–₹200</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-video"></i> Reels/Shorts Editing</h3>
+            <h3>🎬 Reels/Shorts Editing</h3>
             <p class="desc">60s video edits with transitions, effects, and text.</p>
             <p class="price">₹300–₹400</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-film"></i> YouTube Video Editing</h3>
+            <h3>🎞️ YouTube Video Editing</h3>
             <p class="desc">Edits for 5–10 min YouTube videos based on complexity.</p>
             <p class="price">₹600–₹1100</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-chart-line"></i> PowerPoint Design</h3>
+            <h3>📈 PowerPoint Design</h3>
             <p class="desc">Engaging PPTs for classroom/seminar (up to 10 slides).</p>
             <p class="price">₹250–₹500</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-share-alt"></i> Social Media Management</h3>
+            <h3>🔗 Social Media Management</h3>
             <p class="desc">Complete monthly planning & posting service.</p>
             <p class="price">₹5000–₹15000</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-pen"></i> Content Writing</h3>
+            <h3>✍️ Content Writing</h3>
             <p class="desc">Captions or video script writing (per post/video).</p>
             <p class="price">₹100–₹200</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-scroll"></i> Posters / Event Banners</h3>
+            <h3>📜 Posters / Event Banners</h3>
             <p class="desc">Custom A4, square, or story format banners.</p>
             <p class="price">₹300–₹400</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-id-card-alt"></i> Business Card Design</h3>
+            <h3>🪪 Business Card Design</h3>
             <p class="desc">Professional print-ready business card design.</p>
             <p class="price">₹3 per card</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-globe"></i> Website Design & Development</h3>
+            <h3>🌐 Website Design & Development</h3>
             <p class="desc">Responsive business/portfolio websites.</p>
             <p class="price">Contact for Quote</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-mobile-alt"></i> App UI Design</h3>
+            <h3>📱 App UI Design</h3>
             <p class="desc">Modern UI/UX design for Android/iOS apps.</p>
             <p class="price">₹5000</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fab fa-android"></i> Mobile App Development</h3>
+            <h3>🤖 Mobile App Development</h3>
             <p class="desc">Full Android development for business/education apps.</p>
             <p class="price">₹15000</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-shopping-cart"></i> Shopify E-Commerce Setup</h3>
+            <h3>🛒 Shopify E-Commerce Setup</h3>
             <p class="desc">Store setup, banners, products, and payment gateway.</p>
             <p class="price">₹5000</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-tshirt"></i> T-Shirt Printing (Custom)</h3>
+            <h3>👕 T-Shirt Printing (Custom)</h3>
             <p class="desc">Design + print logo/text on T-shirts.</p>
             <p class="price">₹199 / piece</p>
           </article>
 
           <article class="service-card">
-            <h3><i class="fas fa-boxes"></i> Wholesale T-Shirts (Bulk)</h3>
+            <h3>📦 Wholesale T-Shirts (Bulk)</h3>
             <p class="desc">Plain or custom printed T-shirts at competitive rates.</p>
             <p class="price">Contact for Quote</p>
           </article>
@@ -426,47 +428,47 @@
 
         <div class="pricing-grid" data-animate>
           <article class="price-card">
-            <h3><i class="fas fa-box"></i> Starter Plan</h3>
+            <h3>📦 Starter Plan</h3>
             <p class="price-tag">₹999 / month</p>
             <p class="price-includes">Includes 4 Thumbnails, 4 Posts, 2 Reels, 1 PPT</p>
           </article>
           <article class="price-card">
-            <h3><i class="fas fa-rocket"></i> Growth Plan</h3>
+            <h3>🚀 Growth Plan</h3>
             <p class="price-tag">₹2499 / month</p>
             <p class="price-includes">Includes 8 Thumbnails, 8 Posts, 4 Reels, 2 PPTs, Hashtag Strategy</p>
           </article>
           <article class="price-card">
-            <h3><i class="fas fa-crown"></i> Pro Presence Plan</h3>
+            <h3>👑 Pro Presence Plan</h3>
             <p class="price-tag">₹4999 / month</p>
             <p class="price-includes">Includes 12 Thumbnails, 12 Posts, 6 Reels, 10 PPTs, Monthly Insights</p>
           </article>
           <article class="price-card">
-            <h3><i class="fas fa-gem"></i> Elite Expansion Plan</h3>
+            <h3>💎 Elite Expansion Plan</h3>
             <p class="price-tag">₹7999 / month</p>
             <p class="price-includes">Includes 20 Thumbnails, 20 Posts, 10 Reels, 20 PPTs, Full Social Media Management</p>
           </article>
           <article class="price-card">
-            <h3><i class="fas fa-bolt"></i> Content Booster Plan</h3>
+            <h3>⚡ Content Booster Plan</h3>
             <p class="price-tag">₹3499 / month</p>
             <p class="price-includes">10 Thumbnails, 10 Posts, 5 Reels, 3 PPTs, Hashtag Support</p>
           </article>
           <article class="price-card">
-            <h3><i class="fas fa-briefcase"></i> Business Branding Kit</h3>
+            <h3>💼 Business Branding Kit</h3>
             <p class="price-tag">₹5999 (One-Time)</p>
             <p class="price-includes">Logo, Business Card, 5 Posts, Brand Palette, Font Guide</p>
           </article>
           <article class="price-card">
-            <h3><i class="fas fa-play-circle"></i> YouTube Kickstart Plan</h3>
+            <h3>▶️ YouTube Kickstart Plan</h3>
             <p class="price-tag">₹1999 / month</p>
             <p class="price-includes">4 Thumbnails, 2 Shorts, 1 Full Edit, Basic SEO & Tags</p>
           </article>
           <article class="price-card">
-            <h3><i class="fas fa-gift"></i> Festival Promo Pack</h3>
+            <h3>🎁 Festival Promo Pack</h3>
             <p class="price-tag">₹1499 / month</p>
             <p class="price-includes">4 Festival Posts, 1 Reel, 1 Story, Custom Branding</p>
           </article>
           <article class="price-card">
-            <h3><i class="fas fa-chalkboard-teacher"></i> Education Partner Plan</h3>
+            <h3>👨‍🏫 Education Partner Plan</h3>
             <p class="price-tag">₹6999 / month</p>
             <p class="price-includes">15 Thumbnails, 15 Posts, 6 Reels, 5 PPTs, Weekly Calendar</p>
           </article>
@@ -555,46 +557,6 @@
     </section>
 
     <!-- =============================================================
-         PORTFOLIO
-         ============================================================= -->
-    <section id="portfolio" class="section">
-      <div class="container">
-        <h2 class="section-title">Our Work</h2>
-        <p class="section-sub">Snippets from recent brand & education projects.</p>
-
-        <div class="portfolio-grid" data-animate>
-          <div class="portfolio-card">
-            <img src="https://via.placeholder.com/900x550" alt="Project 1">
-            <div class="portfolio-overlay">
-              <div>
-                <h3>Project One</h3>
-                <p>Social media revamp for education brand</p>
-              </div>
-            </div>
-          </div>
-          <div class="portfolio-card">
-            <img src="https://via.placeholder.com/900x550" alt="Project 2">
-            <div class="portfolio-overlay">
-              <div>
-                <h3>Project Two</h3>
-                <p>Creative campaign for coaching institute</p>
-              </div>
-            </div>
-          </div>
-          <div class="portfolio-card">
-            <img src="https://via.placeholder.com/900x550" alt="Project 3">
-            <div class="portfolio-overlay">
-              <div>
-                <h3>Project Three</h3>
-                <p>Brand identity & content design</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =============================================================
          CONTACT
          ============================================================= -->
     <section id="contact" class="section">
@@ -603,10 +565,10 @@
         <p class="section-sub">DM, call, or drop a message — we reply fast.</p>
 
         <div class="contact-links" data-animate>
-          <a href="https://www.instagram.com/artix_projects/" target="_blank" rel="noreferrer noopener"><i class="fab fa-instagram"></i> Instagram</a>
-          <a href="https://wa.me/919536240238" target="_blank" rel="noreferrer noopener"><i class="fab fa-whatsapp"></i> WhatsApp 1</a>
-          <a href="https://wa.me/91819991927" target="_blank" rel="noreferrer noopener"><i class="fab fa-whatsapp"></i> WhatsApp 2</a>
-          <a href="tel:9350122347"><i class="fas fa-phone-alt"></i> Call Us</a>
+          <a href="https://www.instagram.com/artix_projects/" target="_blank" rel="noreferrer noopener">Instagram</a>
+          <a href="https://wa.me/919536240238" target="_blank" rel="noreferrer noopener">WhatsApp 1</a>
+          <a href="https://wa.me/91819991927" target="_blank" rel="noreferrer noopener">WhatsApp 2</a>
+          <a href="tel:9350122347">Call Us</a>
         </div>
 
         <!-- Optional inquiry form (client side only) -->
@@ -614,7 +576,7 @@
           <input id="name" type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
           <input id="email" type="email" name="email" placeholder="Email Address" required aria-label="Email Address" />
           <textarea id="message" name="message" rows="5" placeholder="Your Message" required aria-label="Your Message"></textarea>
-          <button class="btn" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+          <button class="btn" type="submit">✉️ Send Message</button>
         </form>
       </div>
     </section>
@@ -627,14 +589,23 @@
     <div class="container">© 2025 ARTIX. All rights reserved.</div>
   </footer>
 
+  <!-- Floating socials with inline SVG icons -->
   <div class="social-icons" aria-label="Quick socials">
-    <a href="https://www.instagram.com/artix_projects/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="tel:9350122347" aria-label="Phone"><i class="fas fa-phone-alt"></i></a>
-    <a href="https://wa.me/919536240238" target="_blank" aria-label="WhatsApp 1"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://wa.me/91819991927" target="_blank" aria-label="WhatsApp 2"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://www.instagram.com/artix_projects/" target="_blank" aria-label="Instagram">
+      <svg aria-hidden="true"><use href="#icon-instagram" /></svg>
+    </a>
+    <a href="tel:9350122347" aria-label="Phone">
+      <svg aria-hidden="true"><use href="#icon-phone" /></svg>
+    </a>
+    <a href="https://wa.me/919536240238" target="_blank" aria-label="WhatsApp 1">
+      <svg aria-hidden="true"><use href="#icon-whatsapp" /></svg>
+    </a>
+    <a href="https://wa.me/91819991927" target="_blank" aria-label="WhatsApp 2">
+      <svg aria-hidden="true"><use href="#icon-whatsapp" /></svg>
+    </a>
   </div>
 
-  <button class="to-top" id="toTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <button class="to-top" id="toTop" aria-label="Scroll to top">▲</button>
 
   <!-- =============================================================
        SCRIPTS (no external JS — all inline)
@@ -649,19 +620,19 @@
     const mobileMenu = $('#mobileMenu');
     menuToggle.addEventListener('click', () => {
       mobileMenu.classList.toggle('open');
-      menuToggle.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+      menuToggle.textContent = mobileMenu.classList.contains('open') ? '✕' : '≡';
     });
     // Close mobile on link click
     $$('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
-      menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      menuToggle.textContent = '≡';
     }));
 
     // Theme toggle with localStorage
     const themeBtn = $('#themeToggle');
     const setThemeIcon = () => {
       const isLight = document.documentElement.classList.contains('light');
-      themeBtn.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+      themeBtn.textContent = isLight ? '🌙' : '☀️';
     };
     if (localStorage.getItem('artix-theme') === 'light') {
       document.documentElement.classList.add('light');
@@ -697,7 +668,7 @@
     $$('[data-animate]').forEach(el => io.observe(el));
 
     // Scroll spy: highlight active nav link
-    const sections = ['#home','#services','#packages','#team','#samples','#portfolio','#contact'].map(id => document.querySelector(id));
+    const sections = ['#home','#services','#packages','#team','#samples','#contact'].map(id => document.querySelector(id));
     const navLinks = $$('.nav .row .nav-links a');
     const spy = () => {
       let index = 0;
@@ -726,8 +697,7 @@
       const email = $('#email').value.trim();
       const msg = $('#message').value.trim();
       if (!name || !email || !msg) return alert('Please fill out all fields.');
-      // Simulate submission
-      alert(`Thanks, ${name}! We\u2019ll reply to ${email} shortly.`);
+      alert(`Thanks, ${name}! We’ll reply to ${email} shortly.`);
       form.reset();
     });
 
