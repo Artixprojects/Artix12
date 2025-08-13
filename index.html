@@ -1,434 +1,740 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- =============================================================
+       ARTIX – Single-file site (HTML + CSS + JS inline)
+       Copy-paste into a file named index.html and open in a browser.
+       Contains: sticky navbar, hero, services, packages, team, samples,
+       thumbnails, portfolio, contact links, contact form, footer,
+       floating socials, theme toggle, mobile menu, animations,
+       smooth scroll, scroll spy, back-to-top.
+       Approx. 750+ lines to satisfy the 600+ request.
+       ============================================================= -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ARTIX</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta name="description" content="ARTIX – Editing, Design, Branding, Strategy. Services, packages, samples and contact." />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4RhisQmLQOZ3GXk5x3a0Z6lrN1q9VHtV6fRvWmvMRGsiE9z1FMvxh1M6KZ6+0qVY3Bw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
   <style>
-    .typewriter {
-  font-size: 2rem;
-  font-weight: 600;
-  height: 2.5rem;
-  overflow: hidden;
-  position: relative;
-  display: inline-block;
-}
+    /* =============================================================
+       CSS VARIABLES & BASE STYLES
+       ============================================================= */
+    :root {
+      --bg: #0b1220;                 /* dark background */
+      --bg-2: #0f172a;               /* slightly lighter */
+      --surface: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.14);
+      --text: #e6f1ff;
+      --muted: #b8c7e0;
+      --primary: #7c3aed;           /* violet */
+      --primary-2: #06b6d4;          /* cyan */
+      --accent: #f472b6;             /* pink */
+      --shadow: 0 10px 40px rgba(0,0,0,0.55);
+      --radius: 18px;
+      --glass: backdrop-filter: blur(12px);
+      --transition: 220ms ease;
+    }
 
-.word-list {
-  display: inline-block;
-  animation: slideWords 10s steps(5) infinite;
-}
+    /* Light theme overrides */
+    html.light {
+      --bg: #f7f7fb;
+      --bg-2: #ffffff;
+      --surface: rgba(10,10,30,0.05);
+      --border: rgba(10,10,30,0.10);
+      --text: #0b1220;
+      --muted: #48536b;
+      --shadow: 0 10px 24px rgba(0,0,0,0.1);
+    }
 
-.word-list b {
-  display: block;
-  line-height: 2.5rem;
-  white-space: nowrap;
-}
+    * { box-sizing: border-box; }
+    *::selection { background: rgba(124,58,237,0.35); color: #fff; }
 
-@keyframes slideWords {
-  0%   { transform: translateY(0); }
-  20%  { transform: translateY(-2.5rem); }
-  40%  { transform: translateY(-5rem); }
-  60%  { transform: translateY(-7.5rem); }
-  80%  { transform: translateY(-10rem); }
-  100% { transform: translateY(0); }
-}
+    html, body { height: 100%; }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #0f172a;
-      color: #fff;
-    }
-    .hero {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      min-height: 100vh;
-      background: radial-gradient(circle at top left, #9333ea, #06b6d4, #1e293b);
-      animation: backgroundShift 10s infinite alternate ease-in-out;
-      color: #fff;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
-    }
-    @keyframes backgroundShift {
-      0% { background-position: top left; }
-      100% { background-position: bottom right; }
-    }
-    .hero h1 {
-      font-size: 7rem;
-      font-weight: 800;
-      text-shadow: 0 0 60px rgba(255,255,255,0.8);
-      letter-spacing: 2px;
-    }
-    .hero p {
-      margin: 20px 0;
-      font-size: 1.8rem;
-      opacity: 0.95;
-      max-width: 700px;
-    }
-    .btn {
-      display: inline-block;
-      margin: 10px;
-      padding: 16px 36px;
-      border-radius: 50px;
-      background: linear-gradient(90deg, #f472b6, #9333ea);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.2rem;
-      transition: all 0.4s ease;
-      box-shadow: 0 0 20px #9333ea;
-    }
-    .btn:hover {
-      transform: scale(1.1) rotate(1deg);
-      box-shadow: 0 0 40px #9333ea;
-    }
-    .section {
-      padding: 80px 20px;
-      border-radius: 20px;
-      margin: 30px auto;
-      width: 90%;
-    }
-    .section:nth-child(even) {
-      background: linear-gradient(160deg, #1e40af, #06b6d4);
-    }
-    .section:nth-child(odd) {
-      background: linear-gradient(160deg, #9333ea, #f472b6);
-    }
-    .section h2 {
-      text-align: center;
-      font-size: 3.5rem;
-      margin-bottom: 50px;
-      color: #fff;
-      font-weight: 800;
-      text-shadow: 0 0 15px rgba(0,0,0,0.6);
-    }
-    .card-grid {
-      display: grid;
-      gap: 30px;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-      transition: all 0.4s ease;
-      text-align: center;
-    }
-    .card:hover {
-      transform: scale(1.08);
-      box-shadow: 0 25px 60px rgba(255, 255, 255, 0.4);
-      border-color: #f472b6;
-    }
-    .card:nth-child(odd) {
-      background: rgba(255, 255, 255, 0.08);
-    }
-    .card:nth-child(even) {
-      background: rgba(0, 0, 0, 0.2);
-    }
-    .card h3 {
-      margin-bottom: 12px;
-      color: #fff;
-      font-size: 2rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    .card h3 i {
-      color: #f472b6;
-      font-size: 1.6rem;
-    }
-    .card p {
-      margin: 10px 0;
-      color: #e0f2fe;
+      margin: 0;
+      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(124,58,237,0.15), transparent 50%),
+                  radial-gradient(1200px 800px at 120% 20%, rgba(6,182,212,0.12), transparent 50%),
+                  var(--bg);
       line-height: 1.6;
+      overflow-x: hidden;
     }
-    .contact {
-      background: radial-gradient(circle, #06b6d4, #9333ea);
-      padding: 60px 20px;
-      border-radius: 25px;
-      box-shadow: 0 10px 60px rgba(0, 0, 0, 0.8);
-      color: #fff;
-      text-align: center;
-    }
-    .contact h2 {
-      font-size: 3rem;
-      margin-bottom: 30px;
-      text-shadow: 0 0 20px #06b6d4;
-    }
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 30px;
-    }
-    .contact-links a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 15px 25px;
-      border-radius: 50px;
-      background: linear-gradient(90deg, #9333ea, #06b6d4);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.2rem;
-      transition: all 0.3s ease;
-    }
-    .contact-links a:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px #06b6d4;
-    }
-    .footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 1rem;
-      color: #f1f5f9;
-      border-top: 1px solid rgba(255,255,255,0.15);
-    }
-    .social-icons {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .social-icons a {
-      background: linear-gradient(90deg, #06b6d4, #9333ea);
-      padding: 12px;
-      border-radius: 50%;
-      color: #fff;
-      text-decoration: none;
-      transition: transform 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-    }
-    .social-icons a:hover {
-      transform: scale(1.2);
-    }
-    .video-card p {
-  margin-top: 15px;
-  font-size: 1rem;
-  color: #e0f2fe;
-}
 
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* 16:9 ratio */
-  height: 0;
-  overflow: hidden;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
-}
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font-family: inherit; }
 
-.video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 15px;
-}
+    /* Utility classes */
+    .container { width: min(1200px, 92%); margin-inline: auto; }
+    .grid { display: grid; gap: 1.5rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .9rem 1.25rem;
+      border-radius: 999px; border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(124,58,237,.25), rgba(6,182,212,.25));
+      color: #fff; font-weight: 700; letter-spacing: .2px; box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(124,58,237,.35); opacity: .95; }
+    .btn.secondary { background: linear-gradient(135deg, rgba(6,182,212,.25), rgba(244,114,182,.25)); }
+    .badge { font-size: .75rem; padding: .4rem .7rem; border-radius: 999px; background: rgba(124,58,237,.16); border: 1px solid var(--border); color: #fff; }
 
-   .thumbnails {
-  text-align: center;
-  padding: 40px 20px;
-  background: linear-gradient(to bottom, #0077b6, #00b4d8); /* adjust to match your theme */
-}
+    .section { padding: 90px 0; position: relative; }
+    .section-title { text-align: center; font-size: clamp(1.8rem, 2.6vw, 3rem); margin: 0 0 1.2rem; letter-spacing: .6px; font-weight: 800; }
+    .section-sub { text-align: center; color: var(--muted); margin-bottom: 2.6rem; }
 
-.thumbnails h2 {
-  font-size: 2rem;
-  color: #fff;
-  margin-bottom: 20px;
-  font-family: Poppins, sans-serif;
-}
+    /* =============================================================
+       NAVBAR
+       ============================================================= */
+    .nav {
+      position: sticky; top: 0; z-index: 99; backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(10,10,20,0.55), rgba(10,10,20,0.25));
+      border-bottom: 1px solid var(--border);
+    }
+    .nav .row { display: flex; align-items: center; justify-content: space-between; padding: .8rem 0; }
+    .logo { display: inline-flex; align-items: center; gap: .6rem; font-weight: 900; letter-spacing: 1px; }
+    .logo .dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-2)); box-shadow: 0 0 12px rgba(124,58,237,.75); }
 
-.thumbnail-wrapper {
-  display: inline-block;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-}
+    .nav-links { display: flex; gap: 1rem; align-items: center; }
+    .nav-links a { padding: .6rem .9rem; border-radius: 12px; color: var(--muted); border: 1px solid transparent; }
+    .nav-links a.active, .nav-links a:hover { color: #fff; border-color: var(--border); background: rgba(255,255,255,0.06); }
 
-.thumbnail-wrapper video {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-}
+    .nav-cta { display: flex; gap: .8rem; align-items: center; }
+    .theme-toggle, .menu-toggle { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; }
+    .theme-toggle i, .menu-toggle i { font-size: 1.05rem; }
 
+    /* Mobile menu */
+    .mobile-menu { display: none; }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .mobile-menu { display: block; position: fixed; inset: 64px 0 auto 0; background: rgba(10,10,20,.9); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); transform: translateY(-10%); opacity: 0; pointer-events: none; transition: 260ms ease; }
+      .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+      .mobile-menu .container { display: grid; gap: .4rem; padding: 1rem 0 1.2rem; }
+      .mobile-menu a { padding: .9rem 1rem; border-top: 1px dashed var(--border); color: #fff; }
+    }
+
+    /* =============================================================
+       HERO
+       ============================================================= */
+    .hero {
+      position: relative; display: grid; place-items: center; min-height: 82vh; text-align: center; overflow: hidden; border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(1200px 600px at -20% 20%, rgba(124,58,237,.25), transparent 60%),
+        radial-gradient(800px 500px at 120% -10%, rgba(6,182,212,.25), transparent 60%);
+    }
+    .hero .title { font-size: clamp(3rem, 8vw, 7.2rem); font-weight: 900; letter-spacing: .06em; line-height: .9; text-shadow: 0 0 60px rgba(255,255,255,0.18); }
+    .hero .kicker { margin-top: 14px; font-size: clamp(1rem, 2vw, 1.25rem); color: var(--muted); }
+
+    /* Typewriter word scroller (vertical) */
+    .typewriter { display: inline-flex; height: 2.6rem; overflow: hidden; position: relative; vertical-align: middle; margin-top: .6rem; }
+    .typewriter .word-list { display: inline-block; animation: slideWords 12s steps(6) infinite; }
+    .typewriter .word-list b { display: block; line-height: 2.6rem; white-space: nowrap; font-size: 1.35rem; }
+    @keyframes slideWords {
+      0% { transform: translateY(0); }
+      16% { transform: translateY(-2.6rem); }
+      32% { transform: translateY(-5.2rem); }
+      48% { transform: translateY(-7.8rem); }
+      64% { transform: translateY(-10.4rem); }
+      80% { transform: translateY(-13rem); }
+      100% { transform: translateY(0); }
+    }
+
+    .hero-cta { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* Decorative orbs */
+    .orb { position: absolute; filter: blur(30px); opacity: .6; pointer-events: none; }
+    .orb.one { width: 380px; height: 380px; background: radial-gradient(circle, rgba(124,58,237,.55), transparent 60%); top: 8%; left: 6%; animation: float1 10s ease-in-out infinite; }
+    .orb.two { width: 300px; height: 300px; background: radial-gradient(circle, rgba(6,182,212,.55), transparent 60%); bottom: 8%; right: 6%; animation: float2 12s ease-in-out infinite; }
+    @keyframes float1 { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(18px);} }
+    @keyframes float2 { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-18px);} }
+
+    /* =============================================================
+       SERVICES
+       ============================================================= */
+    #services .grid { grid-template-columns: repeat(12, 1fr); }
+    .service-card {
+      grid-column: span 4; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.25rem; box-shadow: var(--shadow); transition: transform var(--transition), border-color var(--transition), background var(--transition);
+    }
+    .service-card:hover { transform: translateY(-6px); border-color: rgba(124,58,237,.55); background: linear-gradient(180deg, rgba(124,58,237,.08), rgba(6,182,212,.08)); }
+    .service-card h3 { margin: .2rem 0 .5rem; font-size: 1.25rem; display: flex; align-items: center; gap: .6rem; }
+    .service-card h3 i { color: var(--accent); }
+    .price { font-weight: 700; color: #fff; }
+    .desc { color: var(--muted); }
+
+    @media (max-width: 1100px) { .service-card { grid-column: span 6; } }
+    @media (max-width: 720px)  { .service-card { grid-column: span 12; } }
+
+    /* =============================================================
+       PACKAGES / PRICING
+       ============================================================= */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+    .price-card { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 1.2rem; box-shadow: var(--shadow); overflow: hidden; }
+    .price-card:hover { transform: translateY(-5px); transition: 180ms ease; }
+    .price-card h3 { margin: .2rem 0 .6rem; }
+    .price-tag { font-size: 1.1rem; font-weight: 800; color: #fff; }
+    .price-includes { color: var(--muted); font-size: .95rem; }
+
+    /* =============================================================
+       TEAM
+       ============================================================= */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+    .member { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1rem; text-align: center; box-shadow: var(--shadow); }
+    .member h4 { margin: .4rem 0 .1rem; }
+    .member span { color: var(--muted); font-size: .95rem; }
+
+    /* =============================================================
+       SAMPLES (YouTube embeds)
+       ============================================================= */
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+    .video-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: .8rem; box-shadow: var(--shadow); }
+    .video-wrapper { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; }
+    .video-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; border-radius: 12px; }
+    .video-card p { margin: .7rem 0 0; color: var(--muted); font-size: .95rem; }
+
+    /* Thumbnails reel */
+    .thumbnails { text-align: center; padding: 40px 0; }
+    .thumbnail-wrapper { display: inline-block; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .thumbnail-wrapper video { max-width: min(100%, 950px); display: block; }
+
+    /* =============================================================
+       PORTFOLIO
+       ============================================================= */
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+    .portfolio-card { position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .portfolio-card img { width: 100%; height: auto; display: block; }
+    .portfolio-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,20,.0), rgba(10,10,20,.85)); color: #fff; display: flex; align-items: flex-end; padding: 1rem; opacity: 0; transition: 220ms ease; }
+    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+
+    /* =============================================================
+       CONTACT LINKS + FORM
+       ============================================================= */
+    .contact-links { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 1rem; }
+    .contact-links a { display: inline-flex; align-items: center; gap: .6rem; padding: .8rem 1rem; border-radius: 999px; background: linear-gradient(135deg, rgba(124,58,237,.35), rgba(6,182,212,.35)); color: #fff; border: 1px solid var(--border); }
+    .contact-links a:hover { opacity: .95; transform: translateY(-2px); }
+
+    .contact-form { max-width: 560px; margin: 1.2rem auto 0; display: grid; gap: .8rem; }
+    .contact-form input, .contact-form textarea {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px; color: var(--text);
+      padding: .9rem 1rem; outline: none; transition: border var(--transition), background var(--transition);
+    }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: rgba(124,58,237,.55); background: rgba(255,255,255,0.08); }
+
+    /* =============================================================
+       FOOTER + FLOATING SOCIALS + BACK TO TOP
+       ============================================================= */
+    .footer { text-align: center; padding: 24px 0 36px; color: var(--muted); border-top: 1px solid var(--border); background: rgba(255,255,255,0.03); }
+
+    .social-icons { position: fixed; right: 16px; bottom: 16px; display: grid; gap: 10px; z-index: 90; }
+    .social-icons a { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: linear-gradient(135deg, var(--primary), var(--primary-2)); border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform var(--transition), filter var(--transition); }
+    .social-icons a:hover { transform: translateY(-2px) scale(1.04); filter: brightness(1.08); }
+
+    .to-top { position: fixed; left: 16px; bottom: 16px; width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: rgba(124,58,237,.85); border: 1px solid var(--border); box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: 220ms ease; z-index: 90; }
+    .to-top.show { opacity: 1; pointer-events: auto; }
+
+    /* =============================================================
+       REVEAL ANIMATIONS (scroll-in)
+       ============================================================= */
+    [data-animate] { opacity: 0; transform: translateY(36px); transition: opacity 700ms ease, transform 700ms ease; }
+    [data-animate].show { opacity: 1; transform: translateY(0); }
+
+    /* Small helper to visually highlight active nav link */
+    .nav .active { background: rgba(124,58,237,.18); color: #fff !important; }
 
   </style>
 </head>
 <body>
-  <div class="hero">
-    <h1>ARTIX</h1>
-<p class="typewriter">
-  <span class="word-list">
-    <b>Editing</b>
-    <b>Design</b>
-    <b>Creativity</b>
-    <b>Branding</b>
-    <b>Strategy</b>
-  </span>
-</p>
-    <a href="#services" class="btn">Explore Services</a>
-    <a href="#contact" class="btn">Get In Touch</a>
+  <!-- =============================================================
+       NAV
+       ============================================================= -->
+  <nav class="nav" aria-label="Primary">
+    <div class="container row">
+      <a href="#home" class="logo"><span class="dot" aria-hidden="true"></span> ARTIX</a>
+      <div class="nav-links" role="menubar">
+        <a role="menuitem" href="#home" class="active">Home</a>
+        <a role="menuitem" href="#services">Services</a>
+        <a role="menuitem" href="#packages">Packages</a>
+        <a role="menuitem" href="#team">Team</a>
+        <a role="menuitem" href="#samples">Samples</a>
+        <a role="menuitem" href="#portfolio">Portfolio</a>
+        <a role="menuitem" href="#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fa-solid fa-sun"></i></button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+        <a href="#contact" class="btn" aria-label="Contact Now"><i class="fa-solid fa-bolt"></i> Contact</a>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="container">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#packages">Packages</a>
+        <a href="#team">Team</a>
+        <a href="#samples">Samples</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =============================================================
+       HERO
+       ============================================================= -->
+  <header id="home" class="hero">
+    <span class="orb one" aria-hidden="true"></span>
+    <span class="orb two" aria-hidden="true"></span>
+
+    <div class="container" data-animate>
+      <div class="badge">Editing • Design • Branding • Strategy</div>
+      <h1 class="title">ARTIX</h1>
+      <p class="kicker">We turn ideas into visuals that <strong>perform</strong> — for creators, brands and educators.
+        <span class="typewriter" aria-hidden="true">
+          <span class="word-list">
+            <b>Editing</b>
+            <b>Design</b>
+            <b>Creativity</b>
+            <b>Branding</b>
+            <b>Strategy</b>
+            <b>Consistency</b>
+          </span>
+        </span>
+      </p>
+      <div class="hero-cta">
+        <a href="#services" class="btn"><i class="fa-solid fa-compass"></i> Explore Services</a>
+        <a href="#contact" class="btn secondary"><i class="fa-solid fa-paper-plane"></i> Get In Touch</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- =============================================================
+         SERVICES
+         ============================================================= -->
+    <section id="services" class="section">
+      <div class="container">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-sub">Premium creative services for content creators, institutes and businesses.</p>
+
+        <div class="grid" data-animate>
+          <!-- Keep original details and pricing -->
+          <article class="service-card">
+            <h3><i class="fas fa-image"></i> Thumbnail Design</h3>
+            <p class="desc">Custom YouTube lecture thumbnails.</p>
+            <p class="price">₹150–₹200</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-bullhorn"></i> Social Media Post Design</h3>
+            <p class="desc">Instagram/Facebook/Twitter post designs.</p>
+            <p class="price">₹120–₹200</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-video"></i> Reels/Shorts Editing</h3>
+            <p class="desc">60s video edits with transitions, effects, and text.</p>
+            <p class="price">₹300–₹400</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-film"></i> YouTube Video Editing</h3>
+            <p class="desc">Edits for 5–10 min YouTube videos based on complexity.</p>
+            <p class="price">₹600–₹1100</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-chart-line"></i> PowerPoint Design</h3>
+            <p class="desc">Engaging PPTs for classroom/seminar (up to 10 slides).</p>
+            <p class="price">₹250–₹500</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-share-alt"></i> Social Media Management</h3>
+            <p class="desc">Complete monthly planning & posting service.</p>
+            <p class="price">₹5000–₹15000</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-pen"></i> Content Writing</h3>
+            <p class="desc">Captions or video script writing (per post/video).</p>
+            <p class="price">₹100–₹200</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-scroll"></i> Posters / Event Banners</h3>
+            <p class="desc">Custom A4, square, or story format banners.</p>
+            <p class="price">₹300–₹400</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-id-card-alt"></i> Business Card Design</h3>
+            <p class="desc">Professional print-ready business card design.</p>
+            <p class="price">₹3 per card</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-globe"></i> Website Design & Development</h3>
+            <p class="desc">Responsive business/portfolio websites.</p>
+            <p class="price">Contact for Quote</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-mobile-alt"></i> App UI Design</h3>
+            <p class="desc">Modern UI/UX design for Android/iOS apps.</p>
+            <p class="price">₹5000</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fab fa-android"></i> Mobile App Development</h3>
+            <p class="desc">Full Android development for business/education apps.</p>
+            <p class="price">₹15000</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-shopping-cart"></i> Shopify E-Commerce Setup</h3>
+            <p class="desc">Store setup, banners, products, and payment gateway.</p>
+            <p class="price">₹5000</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-tshirt"></i> T-Shirt Printing (Custom)</h3>
+            <p class="desc">Design + print logo/text on T-shirts.</p>
+            <p class="price">₹199 / piece</p>
+          </article>
+
+          <article class="service-card">
+            <h3><i class="fas fa-boxes"></i> Wholesale T-Shirts (Bulk)</h3>
+            <p class="desc">Plain or custom printed T-shirts at competitive rates.</p>
+            <p class="price">Contact for Quote</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         PACKAGES / PRICING
+         ============================================================= -->
+    <section id="packages" class="section">
+      <div class="container">
+        <h2 class="section-title">Our Packages</h2>
+        <p class="section-sub">Pick a plan that fits your goals. Transparent and flexible.</p>
+
+        <div class="pricing-grid" data-animate>
+          <article class="price-card">
+            <h3><i class="fas fa-box"></i> Starter Plan</h3>
+            <p class="price-tag">₹999 / month</p>
+            <p class="price-includes">Includes 4 Thumbnails, 4 Posts, 2 Reels, 1 PPT</p>
+          </article>
+          <article class="price-card">
+            <h3><i class="fas fa-rocket"></i> Growth Plan</h3>
+            <p class="price-tag">₹2499 / month</p>
+            <p class="price-includes">Includes 8 Thumbnails, 8 Posts, 4 Reels, 2 PPTs, Hashtag Strategy</p>
+          </article>
+          <article class="price-card">
+            <h3><i class="fas fa-crown"></i> Pro Presence Plan</h3>
+            <p class="price-tag">₹4999 / month</p>
+            <p class="price-includes">Includes 12 Thumbnails, 12 Posts, 6 Reels, 10 PPTs, Monthly Insights</p>
+          </article>
+          <article class="price-card">
+            <h3><i class="fas fa-gem"></i> Elite Expansion Plan</h3>
+            <p class="price-tag">₹7999 / month</p>
+            <p class="price-includes">Includes 20 Thumbnails, 20 Posts, 10 Reels, 20 PPTs, Full Social Media Management</p>
+          </article>
+          <article class="price-card">
+            <h3><i class="fas fa-bolt"></i> Content Booster Plan</h3>
+            <p class="price-tag">₹3499 / month</p>
+            <p class="price-includes">10 Thumbnails, 10 Posts, 5 Reels, 3 PPTs, Hashtag Support</p>
+          </article>
+          <article class="price-card">
+            <h3><i class="fas fa-briefcase"></i> Business Branding Kit</h3>
+            <p class="price-tag">₹5999 (One-Time)</p>
+            <p class="price-includes">Logo, Business Card, 5 Posts, Brand Palette, Font Guide</p>
+          </article>
+          <article class="price-card">
+            <h3><i class="fas fa-play-circle"></i> YouTube Kickstart Plan</h3>
+            <p class="price-tag">₹1999 / month</p>
+            <p class="price-includes">4 Thumbnails, 2 Shorts, 1 Full Edit, Basic SEO & Tags</p>
+          </article>
+          <article class="price-card">
+            <h3><i class="fas fa-gift"></i> Festival Promo Pack</h3>
+            <p class="price-tag">₹1499 / month</p>
+            <p class="price-includes">4 Festival Posts, 1 Reel, 1 Story, Custom Branding</p>
+          </article>
+          <article class="price-card">
+            <h3><i class="fas fa-chalkboard-teacher"></i> Education Partner Plan</h3>
+            <p class="price-tag">₹6999 / month</p>
+            <p class="price-includes">15 Thumbnails, 15 Posts, 6 Reels, 5 PPTs, Weekly Calendar</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         TEAM
+         ============================================================= -->
+    <section id="team" class="section">
+      <div class="container">
+        <h2 class="section-title">Our Team</h2>
+        <p class="section-sub">A compact crew covering execution to strategy.</p>
+
+        <div class="team-grid" data-animate>
+          <div class="member"><h4>Yash Mathur</h4><span>Execution</span></div>
+          <div class="member"><h4>Keshav Rathee</h4><span>Operations</span></div>
+          <div class="member"><h4>Gravit</h4><span>Editor</span></div>
+          <div class="member"><h4>Himanshu</h4><span>Designer</span></div>
+          <div class="member"><h4>Sherren</h4><span>Writing</span></div>
+          <div class="member"><h4>Shaurya</h4><span>Programming</span></div>
+          <div class="member"><h4>Shubham</h4><span>Pitcher</span></div>
+          <div class="member"><h4>Aditya</h4><span>PPTs</span></div>
+          <div class="member"><h4>Ekansh Lather</h4><span>Video Editor</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         SAMPLES (YouTube embeds)
+         ============================================================= -->
+    <section id="samples" class="section">
+      <div class="container">
+        <h2 class="section-title">Sample Videos</h2>
+        <p class="section-sub">A taste of our edits and motion design.</p>
+
+        <div class="video-grid" data-animate>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/WZGjLFn4mcs" title="Short Sample 1" allowfullscreen></iframe>
+            </div>
+            <p>Short Sample 1</p>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/kD90FgvcycY" title="Short Sample 2" allowfullscreen></iframe>
+            </div>
+            <p>Short Sample 2</p>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/hp1bkBCdBA0" title="Short Sample 3" allowfullscreen></iframe>
+            </div>
+            <p>Short Sample 3</p>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/fUiBzQS7_j0" title="Video Sample 1" allowfullscreen></iframe>
+            </div>
+            <p>Video Sample 1</p>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/UCTsjwmAVrk" title="Video Sample 2" allowfullscreen></iframe>
+            </div>
+            <p>Video Sample 2</p>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/YkVtSLpH8hk" title="Video Sample 3" allowfullscreen></iframe>
+            </div>
+            <p>Video Sample 3</p>
+          </article>
+        </div>
+
+        <!-- Thumbnails reel -->
+        <div class="thumbnails" data-animate>
+          <h3 class="section-sub" style="margin-top: 2rem;">Our Thumbnails</h3>
+          <div class="thumbnail-wrapper">
+            <!-- Replace abc.mp4 with your real file in the same folder -->
+            <video src="abc.mp4" controls autoplay muted loop></video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         PORTFOLIO
+         ============================================================= -->
+    <section id="portfolio" class="section">
+      <div class="container">
+        <h2 class="section-title">Our Work</h2>
+        <p class="section-sub">Snippets from recent brand & education projects.</p>
+
+        <div class="portfolio-grid" data-animate>
+          <div class="portfolio-card">
+            <img src="https://via.placeholder.com/900x550" alt="Project 1">
+            <div class="portfolio-overlay">
+              <div>
+                <h3>Project One</h3>
+                <p>Social media revamp for education brand</p>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-card">
+            <img src="https://via.placeholder.com/900x550" alt="Project 2">
+            <div class="portfolio-overlay">
+              <div>
+                <h3>Project Two</h3>
+                <p>Creative campaign for coaching institute</p>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-card">
+            <img src="https://via.placeholder.com/900x550" alt="Project 3">
+            <div class="portfolio-overlay">
+              <div>
+                <h3>Project Three</h3>
+                <p>Brand identity & content design</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         CONTACT
+         ============================================================= -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-sub">DM, call, or drop a message — we reply fast.</p>
+
+        <div class="contact-links" data-animate>
+          <a href="https://www.instagram.com/artix_projects/" target="_blank" rel="noreferrer noopener"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="https://wa.me/919536240238" target="_blank" rel="noreferrer noopener"><i class="fab fa-whatsapp"></i> WhatsApp 1</a>
+          <a href="https://wa.me/91819991927" target="_blank" rel="noreferrer noopener"><i class="fab fa-whatsapp"></i> WhatsApp 2</a>
+          <a href="tel:9350122347"><i class="fas fa-phone-alt"></i> Call Us</a>
+        </div>
+
+        <!-- Optional inquiry form (client side only) -->
+        <form class="contact-form" id="contactForm" data-animate>
+          <input id="name" type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
+          <input id="email" type="email" name="email" placeholder="Email Address" required aria-label="Email Address" />
+          <textarea id="message" name="message" rows="5" placeholder="Your Message" required aria-label="Your Message"></textarea>
+          <button class="btn" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- =============================================================
+       FOOTER & FLOATING BUTTONS
+       ============================================================= -->
+  <footer class="footer">
+    <div class="container">© 2025 ARTIX. All rights reserved.</div>
+  </footer>
+
+  <div class="social-icons" aria-label="Quick socials">
+    <a href="https://www.instagram.com/artix_projects/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="tel:9350122347" aria-label="Phone"><i class="fas fa-phone-alt"></i></a>
+    <a href="https://wa.me/919536240238" target="_blank" aria-label="WhatsApp 1"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/91819991927" target="_blank" aria-label="WhatsApp 2"><i class="fab fa-whatsapp"></i></a>
   </div>
 
-  <section id="services" class="section">
-  <h2>Our Services</h2>
-  <div class="card-grid">
-    <div class="card"><h3><i class="fas fa-image"></i> Thumbnail Design</h3><p>Custom YouTube lecture thumbnails.</p><p>₹150–₹200</p></div>
+  <button class="to-top" id="toTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
 
-    <div class="card"><h3><i class="fas fa-bullhorn"></i> Social Media Post Design</h3><p>Instagram/Facebook/Twitter post designs.</p><p>₹120–₹200</p></div>
+  <!-- =============================================================
+       SCRIPTS (no external JS — all inline)
+       ============================================================= -->
+  <script>
+    // Helper: select
+    const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
 
-    <div class="card"><h3><i class="fas fa-video"></i> Reels/Shorts Editing</h3><p>60s video edits with transitions, effects, and text.</p><p>₹300–₹400</p></div>
+    // Mobile menu toggle
+    const menuToggle = $('#menuToggle');
+    const mobileMenu = $('#mobileMenu');
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      menuToggle.innerHTML = mobileMenu.classList.contains('open') ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+    });
+    // Close mobile on link click
+    $$('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }));
 
-    <div class="card"><h3><i class="fas fa-film"></i> YouTube Video Editing</h3><p>Edits for 5–10 min YouTube videos based on complexity.</p><p>₹600–₹1100</p></div>
+    // Theme toggle with localStorage
+    const themeBtn = $('#themeToggle');
+    const setThemeIcon = () => {
+      const isLight = document.documentElement.classList.contains('light');
+      themeBtn.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    };
+    if (localStorage.getItem('artix-theme') === 'light') {
+      document.documentElement.classList.add('light');
+    }
+    setThemeIcon();
+    themeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light');
+      localStorage.setItem('artix-theme', document.documentElement.classList.contains('light') ? 'light' : 'dark');
+      setThemeIcon();
+    });
 
-    <div class="card"><h3><i class="fas fa-chart-line"></i> PowerPoint Design</h3><p>Engaging PPTs for classroom/seminar (up to 10 slides).</p><p>₹250–₹500</p></div>
+    // Smooth scroll for internal links
+    $$('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const id = link.getAttribute('href');
+        const target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
 
-    <div class="card"><h3><i class="fas fa-share-alt"></i> Social Media Management</h3><p>Complete monthly planning & posting service.</p><p>₹5000–₹15000</p></div>
+    // Reveal on scroll (IntersectionObserver)
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+    $$('[data-animate]').forEach(el => io.observe(el));
 
-    <div class="card"><h3><i class="fas fa-pen"></i> Content Writing</h3><p>Captions or video script writing (per post/video).</p><p>₹100–₹200</p></div>
+    // Scroll spy: highlight active nav link
+    const sections = ['#home','#services','#packages','#team','#samples','#portfolio','#contact'].map(id => document.querySelector(id));
+    const navLinks = $$('.nav .row .nav-links a');
+    const spy = () => {
+      let index = 0;
+      sections.forEach((sec, i) => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= 120 && rect.bottom >= 120) index = i;
+      });
+      navLinks.forEach(a => a.classList.remove('active'));
+      if (navLinks[index]) navLinks[index].classList.add('active');
+    };
+    window.addEventListener('scroll', spy); spy();
 
-    <div class="card"><h3><i class="fas fa-scroll"></i> Posters / Event Banners</h3><p>Custom A4, square, or story format banners.</p><p>₹300–₹400</p></div>
+    // Back to top button logic
+    const toTop = $('#toTop');
+    const onScroll = () => {
+      if (window.scrollY > 500) toTop.classList.add('show'); else toTop.classList.remove('show');
+    };
+    window.addEventListener('scroll', onScroll); onScroll();
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    <div class="card"><h3><i class="fas fa-id-card-alt"></i> Business Card Design</h3><p>Professional print-ready business card design.</p><p>₹3 per card</p></div>
+    // Lightweight form handler (client-side only)
+    const form = $('#contactForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = $('#name').value.trim();
+      const email = $('#email').value.trim();
+      const msg = $('#message').value.trim();
+      if (!name || !email || !msg) return alert('Please fill out all fields.');
+      // Simulate submission
+      alert(`Thanks, ${name}! We\u2019ll reply to ${email} shortly.`);
+      form.reset();
+    });
 
-    <div class="card"><h3><i class="fas fa-globe"></i> Website Design & Development</h3><p>Responsive business/portfolio websites.</p><p>Contact for Quote</p></div>
-
-    <div class="card"><h3><i class="fas fa-mobile-alt"></i> App UI Design</h3><p>Modern UI/UX design for Android/iOS apps.</p><p>₹5000</p></div>
-
-    <div class="card"><h3><i class="fab fa-android"></i> Mobile App Development</h3><p>Full Android development for business/education apps.</p><p>₹15000</p></div>
-
-    <div class="card"><h3><i class="fas fa-shopping-cart"></i> Shopify E-Commerce Setup</h3><p>Store setup, banners, products, and payment gateway.</p><p>₹5000</p></div>
-
-    <div class="card"><h3><i class="fas fa-tshirt"></i> T-Shirt Printing (Custom)</h3><p>Design + print logo/text on T-shirts.</p><p>₹199 / piece</p></div>
-
-    <div class="card"><h3><i class="fas fa-boxes"></i> Wholesale T-Shirts (Bulk)</h3><p>Plain or custom printed T-shirts at competitive rates.</p><p>Contact for Quote</p></div>
-  </div>
-</section>
-
-
-  <section id="packages" class="section">
-  <h2>Our Packages</h2>
-  <div class="card-grid">
-    <div class="card"><h3><i class="fas fa-box"></i> Starter Plan</h3><p>₹999 / month</p><p>Includes 4 Thumbnails, 4 Posts, 2 Reels, 1 PPT</p></div>
-    
-    <div class="card"><h3><i class="fas fa-rocket"></i> Growth Plan</h3><p>₹2499 / month</p><p>Includes 8 Thumbnails, 8 Posts, 4 Reels, 2 PPTs, Hashtag Strategy</p></div>
-    
-    <div class="card"><h3><i class="fas fa-crown"></i> Pro Presence Plan</h3><p>₹4999 / month</p><p>Includes 12 Thumbnails, 12 Posts, 6 Reels, 10 PPTs, Monthly Insights</p></div>
-    
-    <div class="card"><h3><i class="fas fa-gem"></i> Elite Expansion Plan</h3><p>₹7999 / month</p><p>Includes 20 Thumbnails, 20 Posts, 10 Reels, 20 PPTs, Full Social Media Management</p></div>
-    
-    <div class="card"><h3><i class="fas fa-bolt"></i> Content Booster Plan</h3><p>₹3499 / month</p><p>10 Thumbnails, 10 Posts, 5 Reels, 3 PPTs, Hashtag Support</p></div>
-    
-    <div class="card"><h3><i class="fas fa-briefcase"></i> Business Branding Kit</h3><p>₹5999 (One-Time)</p><p>Logo, Business Card, 5 Posts, Brand Palette, Font Guide</p></div>
-    
-    <div class="card"><h3><i class="fas fa-play-circle"></i> YouTube Kickstart Plan</h3><p>₹1999 / month</p><p>4 Thumbnails, 2 Shorts, 1 Full Edit, Basic SEO & Tags</p></div>
-
-    <div class="card"><h3><i class="fas fa-gift"></i> Festival Promo Pack</h3><p>₹1499 / month</p><p>4 Festival Posts, 1 Reel, 1 Story, Custom Branding</p></div>
-
-    <div class="card"><h3><i class="fas fa-chalkboard-teacher"></i> Education Partner Plan</h3><p>₹6999 / month</p><p>15 Thumbnails, 15 Posts, 6 Reels, 5 PPTs, Weekly Calendar</p></div>
-  </div>
-</section>
-
-
-  <section id="team" class="section">
-    <h2>Our Team</h2>
-    <div class="card-grid">
-      <div class="card"><h3>Yash Mathur</h3><p>Execution</p></div>
-      <div class="card"><h3>Keshav Rathee</h3><p>Operations</p></div>
-      <div class="card"><h3>Gravit</h3><p>Editor</p></div>
-      <div class="card"><h3>Himanshu</h3><p>Designer</p></div>
-      <div class="card"><h3>Sherren</h3><p>Writing</p></div>
-      <div class="card"><h3>Shaurya</h3><p>Programming</p></div>
-      <div class="card"><h3>Shubham</h3><p>Pitcher</p></div>
-      <div class="card"><h3>Aditya</h3><p>PPTs</p></div>
-      <div class="card"><h3>Ekansh Lather</h3><p>Video Editor</p></div>
-    </div>
-  </section>
- <section id="samples" class="section">
-  <h2>Sample Videos</h2>
-  <div class="card-grid">
-    <div class="card video-card">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/WZGjLFn4mcs" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <p>Short Sample 1</p>
-    </div>
-    <div class="card video-card">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/kD90FgvcycY" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <p>Short Sample 2</p>
-    </div>
-    <div class="card video-card">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/hp1bkBCdBA0" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <p>Short Sample 3</p>
-    </div>
-    <div class="card video-card">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/fUiBzQS7_j0" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <p>Video Sample 1</p>
-    </div>
-    <div class="card video-card">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/UCTsjwmAVrk" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <p>Video Sample 2</p>
-    </div>
-    <div class="card video-card">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/YkVtSLpH8hk" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <p>Video Sample 3</p>
-    </div>
-  </div>
-<section class="thumbnails">
-  <h2>Our Thumbnails</h2>
-  <div class="thumbnail-wrapper">
-    <video src="abc.mp4" controls autoplay muted loop></video>
-  </div>
-</section>
-
-  <section id="contact" class="section contact">
-    <h2>Contact Us</h2>
-    <div class="contact-links">
-      <a href="https://www.instagram.com/artix_projects/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-      <a href="https://wa.me/919536240238" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp 1</a>
-      <a href="https://wa.me/91819991927" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp 2</a>
-      <a href="tel:9350122347"><i class="fas fa-phone-alt"></i> Call Us</a>
-    </div>
-  </section>
-
-  <footer class="footer">© 2025 ARTIX. All rights reserved.</footer>
-
-  <div class="social-icons">
-    <a href="https://www.instagram.com/artix_projects/" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="tel:9350122347"><i class="fas fa-phone-alt"></i></a>
-    <a href="https://wa.me/919536240238" target="_blank"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://wa.me/91819991927" target="_blank"><i class="fab fa-whatsapp"></i></a>
-  </div>
+    // Accessibility: close mobile menu with Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') mobileMenu.classList.remove('open');
+    });
+  </script>
 </body>
 </html>
