@@ -1,57 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>Artix Games — Choose Game</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
+  <title>Artix Games</title>
 </head>
 <body>
-  <div class="center">
-    <h1>Artix Multiplayer</h1>
-    <p>Select game and create/join a room</p>
 
-    <div class="card">
-      <label>Choose game</label>
-      <select id="modeSelect">
-        <option value="shooter">Shooter (2-player)</option>
-        <option value="block">BlockWorld (Minecraft-like)</option>
-      </select>
-    </div>
+<h1>Select Game</h1>
 
-    <div class="card">
-      <label>Room ID</label>
-      <input id="roomInput" placeholder="room123" />
-      <div style="margin-top:8px">
-        <button id="createBtn">Create Room</button>
-        <button id="joinBtn">Join Room</button>
-      </div>
-    </div>
-
-    <p class="small">After creating, open same room id in another tab/device to play.</p>
-  </div>
+<button onclick="go('shooter')">Shooter</button>
+<button onclick="go('block')">Block World</button>
 
 <script>
-const createBtn = document.getElementById('createBtn');
-const joinBtn = document.getElementById('joinBtn');
-const roomInput = document.getElementById('roomInput');
-const modeSelect = document.getElementById('modeSelect');
-
-function randId(){ return Math.random().toString(36).slice(2,8); }
-
-createBtn.onclick = () => {
-  const rm = (roomInput.value || randId()).trim();
-  const mode = modeSelect.value;
-  // open game page with mode param and room param
-  window.location = `/game?room=${encodeURIComponent(rm)}&mode=${encodeURIComponent(mode)}`;
-};
-
-joinBtn.onclick = () => {
-  const rm = (roomInput.value || '').trim();
-  if (!rm) { alert('Enter room id'); return; }
-  const mode = modeSelect.value;
-  window.location = `/game?room=${encodeURIComponent(rm)}&mode=${encodeURIComponent(mode)}`;
-};
+function go(mode) {
+  const room = Math.random().toString(36).substring(2, 7);
+  window.location.href = `/game?room=${room}&mode=${mode}`;
+}
 </script>
+
 </body>
 </html>
