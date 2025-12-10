@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Artix Game</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<canvas id="game"></canvas>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get('mode');
+
+  if (mode === 'block') {
+    const s = document.createElement('script');
+    s.src = '/block.js';
+    document.body.appendChild(s);
+  } else if (mode === 'shooter') {
+    const s = document.createElement('script');
+    s.src = '/shooter.js';
+    document.body.appendChild(s);
+  } else {
+    alert('Invalid game mode');
+  }
+</script>
+
+</body>
+</html>
