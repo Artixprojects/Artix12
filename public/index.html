@@ -1,13 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-  <title>Multiplayer Tic Tac Toe</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>2-Player Shooter — Artix</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Multiplayer Tic Tac Toe</h1>
-  <h2 id="status">Connecting...</h2>
-  <div id="board"></div>
+  <div class="ui">
+    <div id="roomInfo">
+      Room: <input id="roomInput" placeholder="room id (e.g. abc123)" /> 
+      <button id="joinBtn">Join Room</button>
+    </div>
+    <div id="status">Not connected</div>
+    <div id="scoreboard"></div>
+    <div id="controls">Move: WASD / Shoot: Space / Aim: Mouse</div>
+  </div>
+
+  <canvas id="game" width="800" height="600"></canvas>
+
+  <div class="bottom">
+    <button id="rematchBtn" style="display:none">Request Rematch</button>
+  </div>
 
   <script src="game.js"></script>
 </body>
