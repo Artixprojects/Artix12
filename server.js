@@ -9,6 +9,11 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ noServer: true });
 
 app.use(express.static(path.join(__dirname, 'public')));
+// Serve game page for /game route
+app.get('/game', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'game.html'));
+});
+
 
 // Rooms map
 // rooms: roomId -> { clients: {clientId: ws}, state: {...} }
@@ -354,3 +359,4 @@ setInterval(() => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log('Server listening on', PORT));
+
