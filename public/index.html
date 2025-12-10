@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multiplayer Game</title>
+  <style>
+    body { background:#111; color:white; text-align:center; margin-top:40px; }
+    #player { width:40px; height:40px; background:red; position:absolute; top:200px; left:200px; }
+    #enemy { width:40px; height:40px; background:blue; position:absolute; top:200px; left:300px; }
+  </style>
+</head>
+<body>
+
+<h2>Multiplayer Demo</h2>
+<p>Move using arrow keys</p>
+
+<div id="player"></div>
+<div id="enemy"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
