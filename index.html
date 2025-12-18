@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ARTIX DUCK : CHAOS FLIGHT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      font-family: 'Trebuchet MS', Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+    }
+    canvas {
+      background: linear-gradient(#4facfe, #00f2fe);
+      border-radius: 22px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.7);
+      transition: transform 0.4s ease;
+    }
+    .overlay {
+      position: absolute;
+      text-align: center;
+      font-weight: 900;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+      pointer-events: none;
+    }
+    #brand { top: 10px; font-size: 12px; letter-spacing: 3px; opacity: 0.9; }
+    #title { top: 28px; font-size: 20px; }
+    #hud {
+      position: absolute; top: 60px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 12px; font-weight: bold; pointer-events: none;
+    }
+    #gameOver {
+      display: none;
+      font-size: 26px;
+      background: rgba(0,0,0,0.8);
+      padding: 22px 34px;
+      border-radius: 18px;
+    }
+    #controls {
+      position: absolute; bottom: 12px; display: flex; gap: 10px;
+    }
+    button {
+      background: linear-gradient(#ff9800, #ff5722);
+      border: none; color: #fff; font-weight: bold;
+      padding: 10px 14px; border-radius: 14px; cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="brand">ARTIX PROJECTS</div>
+<div class="overlay" id="title">ARTIX DUCK : CHAOS FLIGHT</div>
+<div class="overlay" id="hud">
+  <div id="scoreText">🔥 0</div>
+  <div id="bestText">🏆 0</div>
+</div>
+<div class="overlay" id="gameOver">💀 GAME OVER 💀<br/>Tap / Click to Restart</div>
+<div id="controls">
+  <button id="fs">FULLSCREEN</button>
+  <button id="skin">SKIN</button>
+</div>
+
+<canvas id="game" width="400" height="600"></canvas>
+
+<script>
+// ==================================================
+// ARTIX DUCK : CHAOS FLIGHT — FULL ALL-IN-ONE VERSION
+// ==================================================
+
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const gameOverText = document.getElementById('gameOver');
+const scoreText = document.getElementById('scoreText');
+const bestText = document.getElementById('bestText');
+
+let gravity = 0.45;
+let baseGravity = 0.45;
+let gameSpeed = 2.6;
+let frame = 0;
+let score = 0;
+let gameOver = false;
+let skinIndex = 0;
+
+// ====== HIGH SCORE ======
+let best = localStorage.getItem('artix_best') || 0;
+bestText.textContent = '🏆 ' + best;
+
+// ====== SOUND (Web Audio) ======
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function beep(freq, dur=0.08) {
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.connect(g); g.connect(audioCtx.destination);
+  o.frequency.value = freq; o.start();
+  g.gain.setValueAtTime(0.1, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+  o.stop(audioCtx.currentTime + dur);
+}
+
+// ====== PARALLAX CLOUDS ======
+let clouds = Array.from({length: 6}, () => ({ x: Math.random()*canvas.width, y: Math.random()*200, speed: Math.random()*0.4+0.2 }));
+function drawClouds() {
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  clouds.forEach(c => {
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, 22, 0, Math.PI*2);
+    ctx.arc(c.x+18, c.y+6, 18, 0, Math.PI*2);
+    ctx.arc(c.x-18, c.y+6, 18, 0, Math.PI*2);
+    ctx.fill();
+    c.x -= c.speed; if (c.x < -60) c.x = canvas.width + 60;
+  });
+
+  // floating ARTIX watermark clouds
+  ctx.fillStyle='rgba(0,0,0,0.08)';
+  ctx.font='bold 28px Arial';
+  ctx.fillText('ARTIX', (frame*0.3)%canvas.width, 140);
+}
+
+// ====== PARTICLES ======
+const particles = [];
+function spawnParticle(x,y){ particles.push({x,y,r:Math.random()*3+1,dx:Math.random()*2-1,dy:Math.random()*2-1,life:40}); }
+function drawParticles(){ particles.forEach((p,i)=>{ ctx.fillStyle=`rgba(255,255,255,${p.life/40})`; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); p.x+=p.dx; p.y+=p.dy; p.life--; if(p.life<=0) particles.splice(i,1); }); }
+
+// ====== DUCK (SKINS + FUNNY EXPRESSIONS) ======
+const skins = [
+  { body:'#FFD93D', hat:'#ff0055' },
+  { body:'#00ffea', hat:'#ffffff' },
+  { body:'#ff4d4d', hat:'#000000' }
+];
+const duck = {
+  x:100, y:300, r:17, v:0, blink:0,
+  jump(){ this.v=-8.5; this.blink=6; beep(600); if(navigator.vibrate) navigator.vibrate(20); },
+  update(){ this.v+=gravity; this.y+=this.v; if(this.blink>0) this.blink--; spawnParticle(this.x-12,this.y); },
+  draw(){
+    const skin = skins[skinIndex];
+    ctx.save();
+    ctx.translate(this.x,this.y);
+    ctx.rotate(this.v*0.05);
+
+    // body
+    ctx.fillStyle = skin.body;
+    ctx.beginPath(); ctx.arc(0,0,this.r,0,Math.PI*2); ctx.fill();
+
+    // wing (funny flap)
+    ctx.fillStyle='rgba(255,255,255,0.6)';
+    ctx.beginPath(); ctx.ellipse(-6,2,6,3,Math.sin(frame*0.3),0,Math.PI*2); ctx.fill();
+
+    // eye (blink)
+    ctx.fillStyle='#000';
+    ctx.beginPath();
+    if(this.blink>0) ctx.rect(3,-4,4,1);
+    else ctx.arc(4,-4,2,0,Math.PI*2);
+    ctx.fill();
+
+    // beak
+    ctx.fillStyle='#ff8c00';
+    ctx.beginPath(); ctx.ellipse(10,2,6,3,0,0,Math.PI*2); ctx.fill();
+
+    // silly hat (ARTIX style)
+    ctx.fillStyle=skin.hat;
+    ctx.fillRect(-6,-20,12,6);
+    ctx.restore();
+  }
+};
+
+// ====== OBSTACLES + ENEMY ======
+const pipes=[]; const enemies=[];
+function createPipe(){ const gap=150; const top=Math.random()*220+40; pipes.push({x:canvas.width+60,top,bottom:top+gap,w:48,sc:false}); }
+function createEnemy(){ enemies.push({x:canvas.width+60,y:Math.random()*400+80,s:3}); }
+
+function drawPipes(){ pipes.forEach(p=>{ const g=ctx.createLinearGradient(p.x,0,p.x+p.w,0); g.addColorStop(0,'#00ff88'); g.addColorStop(1,'#007a3d'); ctx.fillStyle=g; ctx.fillRect(p.x,0,p.w,p.top); ctx.fillRect(p.x,p.bottom,p.w,canvas.height); }); }
+function drawEnemies(){ enemies.forEach(e=>{ ctx.fillStyle='#ff004c'; ctx.fillRect(e.x-12,e.y-12,24,24); }); }
+
+function updateObstacles(){
+  pipes.forEach(p=>{ p.x-=gameSpeed; if(!p.sc && p.x+p.w<duck.x){ score++; scoreText.textContent='🔥 '+score; beep(800); p.sc=true; if(score%5===0) chaos(); }
+    if(duck.x+duck.r>p.x && duck.x-duck.r<p.x+p.w && (duck.y-duck.r<p.top||duck.y+duck.r>p.bottom)) end(); });
+  enemies.forEach(e=>{ e.x-=e.s; if(Math.hypot(duck.x-e.x, duck.y-e.y)<duck.r+12) end(); });
+  if(pipes.length&&pipes[0].x<-80) pipes.shift(); if(enemies.length&&enemies[0].x<-80) enemies.shift();
+}
+
+// ====== CHAOS ======
+function chaos(){ const r=Math.floor(Math.random()*4);
+  if(r===0){ gravity*=-1; flashText('GRAVITY GO BRRR'); }
+  else if(r===1){ gameSpeed+=0.6; flashText('SPEED x🔥'); }
+  else if(r===2){ canvas.style.transform='rotate(180deg)'; flashText('UPSIDE DOWN LOL'); setTimeout(()=>canvas.style.transform='rotate(0deg)',900);} 
+  else { gravity=baseGravity; flashText('NORMAL MODE'); }
+}
+
+// ====== FUNNY FLASH TEXT ======
+let flashMsg='', flashTime=0;
+function flashText(t){ flashMsg=t; flashTime=60; }
+function drawFlash(){
+  if(flashTime>0){
+    ctx.fillStyle='rgba(0,0,0,0.4)';
+    ctx.fillRect(0,canvas.height/2-30,canvas.width,60);
+    ctx.fillStyle='#fff';
+    ctx.font='bold 20px Arial';
+    ctx.textAlign='center';
+    ctx.fillText(flashMsg, canvas.width/2, canvas.height/2+8);
+    ctx.textAlign='left';
+    flashTime--;
+  }
+}
+
+// ====== GAME OVER ======
+function end(){ gameOver=true; gameOverText.style.display='block'; beep(200,0.2);
+  if(score>best){ best=score; localStorage.setItem('artix_best',best); bestText.textContent='🏆 '+best; } }
+
+// ====== LOOP ======
+function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); drawClouds();
+  if(!gameOver){ duck.update(); updateObstacles(); if(frame%80===0) createPipe(); if(frame%220===0) createEnemy(); frame++; }
+  drawPipes(); drawEnemies(); drawParticles(); duck.draw(); drawFlash(); if(duck.y<0||duck.y>canvas.height) end(); requestAnimationFrame(loop); }
+
+// ====== INPUT ======
+canvas.addEventListener('click',()=>{ if(gameOver) location.reload(); duck.jump(); });
+document.getElementById('fs').onclick=()=>{ if(!document.fullscreenElement) canvas.requestFullscreen(); };
+document.getElementById('skin').onclick=()=>{ skinIndex=(skinIndex+1)%skins.length; beep(1000); };
+
+loop();
+</script>
+</body>
+</html>
