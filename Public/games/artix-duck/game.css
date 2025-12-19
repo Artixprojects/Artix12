@@ -1,0 +1,7 @@
+body {
+  background: black;
+  text-align: center;
+}
+canvas {
+  border-radius: 16px;
+}
