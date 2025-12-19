@@ -1,11 +1,15 @@
 {
   "name": "artix-games",
   "version": "1.0.0",
+  "description": "Artix browser games platform",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.19.2"
   }
 }
-
