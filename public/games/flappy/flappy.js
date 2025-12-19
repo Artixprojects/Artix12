@@ -1,52 +1,102 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-let birdY = 250;
-let velocity = 0;
-const gravity = 0.5;
-const jump = -8;
+const jumpSound = new Audio("sounds/jump.wav");
+const dieSound = new Audio("sounds/die.wav");
+
+let bird = {
+  x: 60,
+  y: 200,
+  radius: 12,
+  velocity: 0
+};
+
+let gravity = 0.5;
+let jump = -8;
 
 let pipes = [];
 let frame = 0;
 let score = 0;
+let gameOver = false;
 
-document.addEventListener("keydown", () => velocity = jump);
+// CONTROLS
+document.addEventListener("keydown", flap);
+document.addEventListener("click", flap);
 
-function spawnPipe() {
-  const gap = 140;
-  const top = Math.random() * 200 + 50;
-  pipes.push({ x: 400, top });
+function flap() {
+  if (gameOver) location.reload();
+  bird.velocity = jump;
+  jumpSound.play();
 }
 
-function update() {
-  velocity += gravity;
-  birdY += velocity;
-
-  if (frame % 90 === 0) spawnPipe();
-  frame++;
-
-  pipes.forEach(p => p.x -= 2);
-}
-
-function draw() {
+// GAME LOOP
+function loop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // bird
+  bird.velocity += gravity;
+  bird.y += bird.velocity;
+
   ctx.fillStyle = "yellow";
-  ctx.fillRect(80, birdY, 20, 20);
+  ctx.beginPath();
+  ctx.arc(bird.x, bird.y, bird.radius, 0, Math.PI * 2);
+  ctx.fill();
 
   // pipes
-  ctx.fillStyle = "green";
+  if (frame % 90 === 0) {
+    let gap = 140;
+    let top = Math.random() * 200 + 50;
+    pipes.push({
+      x: canvas.width,
+      top,
+      bottom: top + gap,
+      passed: false
+    });
+  }
+
   pipes.forEach(p => {
+    p.x -= 2;
+
+    ctx.fillStyle = "green";
     ctx.fillRect(p.x, 0, 40, p.top);
-    ctx.fillRect(p.x, p.top + 140, 40, 600);
+    ctx.fillRect(p.x, p.bottom, 40, canvas.height);
+
+    // collision
+    if (
+      bird.x + bird.radius > p.x &&
+      bird.x - bird.radius < p.x + 40 &&
+      (bird.y - bird.radius < p.top ||
+       bird.y + bird.radius > p.bottom)
+    ) {
+      endGame();
+    }
+
+    // score
+    if (!p.passed && p.x + 40 < bird.x) {
+      score++;
+      document.getElementById("score").innerText = score;
+      p.passed = true;
+    }
   });
+
+  // ground death
+  if (bird.y > canvas.height || bird.y < 0) {
+    endGame();
+  }
+
+  frame++;
+  if (!gameOver) requestAnimationFrame(loop);
 }
 
-function loop() {
-  update();
-  draw();
-  requestAnimationFrame(loop);
+function endGame() {
+  if (!gameOver) {
+    dieSound.play();
+    gameOver = true;
+    ctx.fillStyle = "black";
+    ctx.font = "32px Arial";
+    ctx.fillText("Game Over", 90, 320);
+    ctx.fillText("Click to Restart", 60, 360);
+  }
 }
 
 loop();
