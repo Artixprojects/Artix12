@@ -8,6 +8,16 @@ const dieSounds = [
   new Audio("sounds/die1.mp3"),
   new Audio("sounds/die2.mp3")
 ];
+scoreSounds.forEach(s => s.volume = 0.6);
+dieSounds.forEach(s => s.volume = 0.8);
+
+
+function playRandom(arr) {
+  const s = arr[Math.floor(Math.random() * arr.length)];
+  s.currentTime = 0;
+  s.play();
+}
+
 
 
 const birdImg = new Image();
@@ -95,6 +105,7 @@ function loop() {
     // score
     if (!p.passed && p.x + 40 < bird.x) {
       score++;
+      playRandom(scoreSounds);
       document.getElementById("score").innerText = score;
       p.passed = true;
     }
@@ -111,7 +122,7 @@ function loop() {
 
 function endGame() {
   if (!gameOver) {
-    dieSound.play();
+    playRandom(dieSounds);
     gameOver = true;
     ctx.fillStyle = "black";
     ctx.font = "32px Arial";
