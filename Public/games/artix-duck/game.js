@@ -1,2 +1,0 @@
-// ARTIX DUCK GAME CODE HERE
-console.log("ARTIX DUCK LOADED");
