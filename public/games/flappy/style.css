@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  background: skyblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+canvas {
+  background: linear-gradient(#70c5ce, #ffffff);
+  border-radius: 10px;
+}
+
+#score {
+  position: absolute;
+  top: 20px;
+  font-size: 32px;
+  color: white;
+  font-family: Arial;
+  text-shadow: 2px 2px black;
+}
