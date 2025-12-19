@@ -1,3 +1,15 @@
+const scoreSounds = [
+  new Audio("sounds/score1.mp3"),
+  new Audio("sounds/score2.mp3"),
+  new Audio("sounds/score3.mp3")
+];
+
+const dieSounds = [
+  new Audio("sounds/die1.mp3"),
+  new Audio("sounds/die2.mp3")
+];
+
+
 const birdImg = new Image();
 birdImg.src = "assets/bird.jpg";
 
