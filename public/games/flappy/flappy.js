@@ -1,8 +1,8 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-const jumpSound = new Audio("sounds/jump.wav");
-const dieSound = new Audio("sounds/die.wav");
+const jumpSound = new Audio("sounds/jump.mp3");
+const dieSound = new Audio("sounds/die.mp3");
 
 let bird = {
   x: 60,
