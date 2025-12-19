@@ -1,3 +1,7 @@
+const birdImg = new Image();
+birdImg.src = "assets/bird.jpg";
+
+
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
@@ -37,11 +41,16 @@ function loop() {
   bird.velocity += gravity;
   bird.y += bird.velocity;
 
-  ctx.fillStyle = "yellow";
-  ctx.beginPath();
-  ctx.arc(bird.x, bird.y, bird.radius, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.drawImage(
+  birdImg,
+  bird.x - 16,
+  bird.y - 16,
+  40,
+  40
+);
 
+
+  
   // pipes
   if (frame % 90 === 0) {
     let gap = 140;
