@@ -1,27 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Artix Games</title>
-  <link rel="stylesheet" href="/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artix</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="navbar">
-  <div class="logo">Artix</div>
-  <div class="nav-links">
-    <a href="/">Website</a>
-    <a href="/games/flappy/">Games</a>
-  </div>
-</nav>
 
-<h1>🎮 Artix Games</h1>
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="logo">Artix</div>
+    <div class="nav-links">
+      <a href="/">Website</a>
+      <a href="/games/flappy/">Games</a>
+    </div>
+  </nav>
 
-<button onclick="go('flappy')">Flappy Bird</button>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>
+      I build <span>clean</span><br>
+      digital experiences.
+    </h1>
 
-<script>
-function go(game) {
-  window.location.href = `/games/${game}/`;
-}
-</script>
+    <p>
+      A student, creator & developer focused on minimal design,  
+      smooth interfaces and meaningful projects.
+    </p>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <h2>About</h2>
+    <p>
+      I’m Artix. I love building things on the web — from games to
+      clean websites. I believe simplicity is powerful, and good
+      design speaks quietly.
+    </p>
+  </section>
+
+  <!-- WORK -->
+  <section class="work">
+    <h2>What I Do</h2>
+    <div class="cards">
+      <div class="card">Web Development</div>
+      <div class="card">UI Design</div>
+      <div class="card">Game Experiments</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 Artix
+  </footer>
 
 </body>
 </html>
